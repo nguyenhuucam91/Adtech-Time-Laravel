@@ -2,7 +2,7 @@ var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4b
 
 var openCreateLogModal = function (t) {
     return t.modal({
-        url: './views/create-log/create-log.html',
+        url: route('createlog.showCreateLogView'),
         title: 'Log work',
         fullscreen: false
     })
