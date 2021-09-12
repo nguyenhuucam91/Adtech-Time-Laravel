@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
+@extends('layouts.app')
 
-    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+@push('js')
+    @routes
     <script src="{{ asset('js/client.js') }}"></script>
-  </body>
-</html>
+@endpush
