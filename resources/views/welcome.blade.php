@@ -6,6 +6,6 @@
   <body>
 
     <script src="https://p.trellocdn.com/power-up.min.js"></script>
-    <script src="./public/js/client.js"></script>
+    <script src="{{ asset('js/client.js') }}"></script>
   </body>
 </html>
