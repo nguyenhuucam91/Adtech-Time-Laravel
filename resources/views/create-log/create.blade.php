@@ -47,7 +47,8 @@
             var Promise = TrelloPowerUp.Promise;
             var t = TrelloPowerUp.iframe();
             const cardId = t.arg('cardId')
-            console.log(cardId)
+            const memberId = getMemberId(t);
+            console.log(cardId, memberId)
         </script>
     @endpush
 </body>

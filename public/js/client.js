@@ -61,7 +61,7 @@ window.TrelloPowerUp.initialize({
 
         // If we want to ask the user to authorize our Power-Up to make full use of the Trello API
         // you'll need to add your API from trello.com/app-key below:
-        let trelloAPIKey = '5826f9dda372a8614519a86a76683a9f'
+        let trelloAPIKey = getApiKey()
         // This key will be used to generate a token that you can pass along with the API key to Trello's
         // RESTful API. Using the key/token pair, you can make requests on behalf of the authorized user.
 
