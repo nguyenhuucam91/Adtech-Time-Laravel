@@ -1,13 +1,4 @@
 var GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg';
-
-var openCreateLogModal = function (t) {
-    return t.modal({
-        url: route('createlog.showCreateLogView'),
-        title: 'Log work',
-        fullscreen: false
-    })
-}
-
 window.TrelloPowerUp.initialize({
     'card-buttons': function (t, opts) {
         return [{
@@ -15,7 +6,19 @@ window.TrelloPowerUp.initialize({
             // we recommend that you use a popup on click generally
             icon: GRAY_ICON, // don't use a colored icon here
             text: 'Log work',
-            callback: openCreateLogModal,
+            callback: async (t) => {
+                const card = await t.card('id');
+                const cardId = card.id
+                return t.modal({
+                    url: route('createlog.showCreateLogView'),
+                    title: 'Log work',
+                    fullscreen: false,
+                    args: {
+                        cardId: cardId
+                    }
+                })
+
+            },
             condition: 'edit'
         }];
     },

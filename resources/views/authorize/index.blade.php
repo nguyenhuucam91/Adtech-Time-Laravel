@@ -4,6 +4,10 @@
     <button id="auth-btn" type="submit" class="mod-primary">Authorize Access To Trello</button>
 @endsection
 
+@push('css')
+      <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css">
+@endpush
+
 @push('js')
 <script>
       var Promise = TrelloPowerUp.Promise;

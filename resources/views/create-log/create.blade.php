@@ -37,13 +37,17 @@
   @endsection
 
     @push('js')
-        <script src=""></script>
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-        <script src="create-log.js"></script>
         <script>
             $('#datepicker').datepicker({
                 uiLibrary: 'bootstrap4'
             });
+            </script>
+        <script>
+            var Promise = TrelloPowerUp.Promise;
+            var t = TrelloPowerUp.iframe();
+            const cardId = t.arg('cardId')
+            console.log(cardId)
         </script>
     @endpush
 </body>
