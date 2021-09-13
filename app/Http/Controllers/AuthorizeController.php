@@ -10,4 +10,9 @@ class AuthorizeController extends Controller
     {
         return view('authorize.index');
     }
+
+    public function success()
+    {
+        return view('authorize.success');
+    }
 }

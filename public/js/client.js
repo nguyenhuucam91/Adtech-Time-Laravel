@@ -68,9 +68,9 @@ window.TrelloPowerUp.initialize({
                 title: 'Authorization',
                 args: {
                     apiKey: trelloAPIKey,
-                    returnUrl: encodeURIComponent(route('authorize.index')),
+                    returnUrl: encodeURIComponent(route('authorize.success')),
                 }, // Pass in API key to the iframe
-                url: '', // Check out public/authorize.html to see how to ask a user to auth
+                url: route('authorize.index'), // Check out public/authorize.html to see how to ask a user to auth
                 height: 140,
             });
         } else {

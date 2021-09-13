@@ -12,7 +12,7 @@
       var apiKey = t.arg('apiKey'); // Passed in as an argument to our iframe
       var returnUrl = t.arg('returnUrl');
 
-      var trelloAuthUrl = `https://trello.com/1/authorize?expiration=never&name=Example%20Trello%20Power-Up&scope=read&key=${apiKey}&callback_method=fragment&return_url=${window.location.origin}%2F${returnUrl}`;
+      var trelloAuthUrl = `https://trello.com/1/authorize?expiration=never&name=Example%20Trello%20Power-Up&scope=read&key=${apiKey}&callback_method=fragment&return_url=${returnUrl}`;
 
       var tokenLooksValid = function(token) {
         // If this returns false, the Promise won't resolve.
