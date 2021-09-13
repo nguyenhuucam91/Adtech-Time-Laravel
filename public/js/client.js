@@ -58,7 +58,7 @@ window.TrelloPowerUp.initialize({
 
         // If we want to ask the user to authorize our Power-Up to make full use of the Trello API
         // you'll need to add your API from trello.com/app-key below:
-        let trelloAPIKey = '5826f9dda372a8614519a86a76683a9f';
+        let trelloAPIKey = '5826f9dda372a8614519a86a76683a9f'
         // This key will be used to generate a token that you can pass along with the API key to Trello's
         // RESTful API. Using the key/token pair, you can make requests on behalf of the authorized user.
 
@@ -68,9 +68,9 @@ window.TrelloPowerUp.initialize({
                 title: 'Authorization',
                 args: {
                     apiKey: trelloAPIKey,
-                    returnUrl: encodeURIComponent(`Adtech-Time-Tracker/views/auth-success/auth-success.html`),
+                    returnUrl: encodeURIComponent(route('authorize.index')),
                 }, // Pass in API key to the iframe
-                url: './views/authorize/authorize.html', // Check out public/authorize.html to see how to ask a user to auth
+                url: '', // Check out public/authorize.html to see how to ask a user to auth
                 height: 140,
             });
         } else {

@@ -10,4 +10,9 @@ class CreateLogController extends Controller
     {
         return view('create-log.create');
     }
+
+    public function store()
+    {
+        
+    }
 }

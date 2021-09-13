@@ -37,7 +37,7 @@
   @endsection
 
     @push('js')
-        <script src="../../public/js/helper.js"></script>
+        <script src=""></script>
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
         <script src="create-log.js"></script>
         <script>

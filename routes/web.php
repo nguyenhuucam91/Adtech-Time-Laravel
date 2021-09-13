@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorizeController;
 use App\Http\Controllers\CreateLogController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->with(env('TRELLO_API_KEY'));
 });
 
 Route::get('/create-log', [CreateLogController::class, 'showCreateLogView'])->name('createlog.showCreateLogView');
+
+Route::get('authorize', [AuthorizeController::class, 'index'])->name('authorize.index');
