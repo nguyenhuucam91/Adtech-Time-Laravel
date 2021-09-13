@@ -7,15 +7,20 @@ function getApiKey() {
     return '5826f9dda372a8614519a86a76683a9f'
 }
 
-function getMemberId(t) {
+async function getMemberId(t) {
     const apiKey = getApiKey();
     const userToken = await getUserAccessToken(t);
-    const userId = await get(`https://api.trello.com/1/members/me?key=${apiKey}&token=${userToken}`)
-    return userId;
+    const url = `https://api.trello.com/1/members/me?key=${apiKey}&token=${userToken}`;
+    const userId = await get(url)
+    return userId.id;
 }
 
 async function get(url, options = {}) {
-    const res = await fetch(url)
+    const res = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
     const result = await res.json()
     return result
 }

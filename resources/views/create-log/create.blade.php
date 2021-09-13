@@ -44,11 +44,16 @@
             });
             </script>
         <script>
-            var Promise = TrelloPowerUp.Promise;
-            var t = TrelloPowerUp.iframe();
-            const cardId = t.arg('cardId')
-            const memberId = getMemberId(t);
-            console.log(cardId, memberId)
+          (async () => {
+              var Promise = TrelloPowerUp.Promise;
+              var t = TrelloPowerUp.iframe();
+              const cardId = t.arg('cardId')
+              // const apiKey = getApiKey();
+              // const userToken = getUserAccessToken(t);
+            const userId = await getMemberId(t);
+            console.log(cardId, userId)
+          })()
+
         </script>
     @endpush
 </body>
