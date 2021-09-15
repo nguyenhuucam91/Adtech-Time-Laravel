@@ -7,18 +7,18 @@ function getApiKey() {
     return '5826f9dda372a8614519a86a76683a9f'
 }
 
-async function getMemberId(t) {
+async function getMember(t) {
     const apiKey = getApiKey();
     const userToken = await getUserAccessToken(t);
     const url = `https://api.trello.com/1/members/me?key=${apiKey}&token=${userToken}`;
-    const userId = await get(url)
-    return userId.id;
+    const user = await get(url);
+    return user;
 }
 
 async function get(url, options = {}) {
     const res = await fetch(url, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
     })
     const result = await res.json()
@@ -26,5 +26,13 @@ async function get(url, options = {}) {
 }
 
 async function post(url, data) {
-    await fetch(url)
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return response.json();
+
 }
