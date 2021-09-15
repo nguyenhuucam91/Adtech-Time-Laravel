@@ -10,7 +10,7 @@ window.TrelloPowerUp.initialize({
                 const card = await t.card('id');
                 const cardId = card.id
                 return t.modal({
-                    url: route('createlog.showCreateLogView'),
+                    url: route('log.show', cardId),
                     title: 'Log work',
                     fullscreen: false,
                     args: {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CreateLogController;
+use App\Http\Controllers\LogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/create-log', [CreateLogController::class, 'store'])->name('createlog.store');
+Route::post('/logs', [LogController::class, 'store'])->name('log.store');

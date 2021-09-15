@@ -29,44 +29,61 @@
             <br/>
             <div class="row">
             <p>Description</p>
-            <textarea name="description" class="form-control" id="description"></textarea>
+            <textarea class="form-control" id="description"></textarea>
         </div>
     </form>
     <!-- Result after query -->
-    <ul id="result" class="list-group"></ul>
-  </div>
+    <div class="row">
+        <div id="result" class="list-group">
+            @foreach($logs as $log)
+            <div class="list-group-item d-flex justify-content-between">
+                <img src="{{ $log->avatar_url }}" alt={{ $log->username }} />
+                <p>{{ $log->time_spent }}</p>
+                <p>{{ $log->description }}</p>
+            </div>
+            @endforeach
+        </div>
+    </div>
   @endsection
 
     @push('js')
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
         <script>
             $('#log-date').datepicker({
-                uiLibrary: 'bootstrap4'
+                uiLibrary: 'bootstrap4',
+                format: 'yyyy-mm-dd'
             });
             </script>
         <script>
-          (async () => {
-              var Promise = TrelloPowerUp.Promise;
-              var t = TrelloPowerUp.iframe();
-              const cardId = t.arg('cardId')
+            async function reloadLog()
+            {
+                const res = await get(route('log.index'))
+                $("#result").html(`<li>${res}</li>`)
+            }
+
+            (async () => {
+            var Promise = TrelloPowerUp.Promise;
+            var t = TrelloPowerUp.iframe();
+            const cardId = t.arg('cardId')
               // const apiKey = getApiKey();
               // const userToken = getUserAccessToken(t);
             const user = await getMember(t);
             //send post request on form submit
             $("#logwork-form").submit(function(e) {
+                //console.log(a)
                 e.preventDefault();
                 const logDate = $("#log-date").val();
                 const timeSpent = $("#time-spent").val();
                 const description = $("#description").val();
-                post(route('createlog.store'), {
+                post(route('log.store'), {
                     user_id: user.id,
                     username: user.username,
                     avatar_url: user.avatarUrl,
                     card_id: cardId,
                     logged_at: logDate,
-                    timeSpent,
+                    time_spent: timeSpent,
                     description
-                });
+                },reloadLog());
             });
         })()
 

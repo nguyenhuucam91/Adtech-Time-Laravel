@@ -25,7 +25,7 @@ async function get(url, options = {}) {
     return result
 }
 
-async function post(url, data) {
+async function post(url, data, callback = null) {
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -33,6 +33,9 @@ async function post(url, data) {
         },
         body: JSON.stringify(data)
     });
-    return response.json();
-
+    const jsonResult = await response.json()
+    if (callback == null) {
+        return jsonResult;
+    }
+    return callback(jsonResult);
 }

@@ -19,7 +19,7 @@ class CreateLogTable extends Migration
             $table->string('username');
             $table->string('avatar_url');
             $table->string('card_id');
-            $table->timestamp('logged_at');
+            $table->dateTime('logged_at');
             $table->string('time_spent');
             $table->string('description');
         });
