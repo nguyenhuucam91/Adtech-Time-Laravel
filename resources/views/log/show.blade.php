@@ -48,9 +48,9 @@
 
     @push('js')
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-        <script src="https://unpkg.com/gijgo@1.9.13/js/repository.js" type="text/javascript"></script>
-        <script src="https://unpkg.com/gijgo@1.9.13/js/services/user.js" type="text/javascript"></script>
-        <script src="https://unpkg.com/gijgo@1.9.13/js/services/log.js" type="text/javascript"></script>
+        <script src="{{ asset('js/repository.js') }}"></script>
+        <script src="{{ asset('js/services/user.js') }}"></script>
+        <script src="{{ asset('js/services/log.js') }}"></script>
         <script>
             var date = new Date();
             $('#log-date').datepicker({
@@ -68,7 +68,7 @@
               // const userToken = getUserAccessToken(t);
             const user = await getMember(t, @json(config('services.trello.key')));
             //send post request on form submit
-            $("#logwork-form").submit(function(e) {
+            $("#logwork-form").submit(async function(e) {
                 //console.log(a)
                 e.preventDefault();
                 const logDate = $("#log-date").val();
@@ -85,7 +85,6 @@
                 };
                 const response = await storeLog(data)
                 await getLogs()
-                );
             });
         })()
 
