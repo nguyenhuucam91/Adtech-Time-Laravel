@@ -7,13 +7,13 @@
 @endpush
 
 
-  @section('content')
+@section('content')
     <form id="logwork-form">
         <div class="container">
             <div class="row d-flex justify-content-between">
             <div>
                 <p class="text-center">Date</p>
-                <input type="text" class="form-control" id="log-date"/>
+                <input type="text" class="form-control" id="log-date" value="{{ date('d-m-Y') }}"/>
             </div>
 
             <div>
@@ -44,14 +44,17 @@
             @endforeach
         </div>
     </div>
-  @endsection
+@endsection
 
     @push('js')
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/gijgo@1.9.13/js/repository.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/gijgo@1.9.13/js/services/log.js" type="text/javascript"></script>
         <script>
+            var date = new Date();
             $('#log-date').datepicker({
                 uiLibrary: 'bootstrap4',
-                format: 'yyyy-mm-dd'
+                format: 'dd-mm-yyyy',
             });
             </script>
         <script>
@@ -75,7 +78,7 @@
                 const logDate = $("#log-date").val();
                 const timeSpent = $("#time-spent").val();
                 const description = $("#description").val();
-                post(route('log.store'), {
+                const data = {
                     user_id: user.id,
                     username: user.username,
                     avatar_url: user.avatarUrl,
@@ -83,7 +86,9 @@
                     logged_at: logDate,
                     time_spent: timeSpent,
                     description
-                },reloadLog());
+                };
+                storeLog(data)
+                );
             });
         })()
 
