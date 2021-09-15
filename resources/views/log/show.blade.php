@@ -49,6 +49,7 @@
     @push('js')
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
         <script src="https://unpkg.com/gijgo@1.9.13/js/repository.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/gijgo@1.9.13/js/services/user.js" type="text/javascript"></script>
         <script src="https://unpkg.com/gijgo@1.9.13/js/services/log.js" type="text/javascript"></script>
         <script>
             var date = new Date();
@@ -70,7 +71,7 @@
             const cardId = t.arg('cardId')
               // const apiKey = getApiKey();
               // const userToken = getUserAccessToken(t);
-            const user = await getMember(t);
+            const user = await getMember(t, @json(config('services.trello.key')));
             //send post request on form submit
             $("#logwork-form").submit(function(e) {
                 //console.log(a)
