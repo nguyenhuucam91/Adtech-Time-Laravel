@@ -59,11 +59,6 @@
             });
             </script>
         <script>
-            async function reloadLog()
-            {
-                const res = await get(route('log.index'))
-                $("#result").html(`<li>${res}</li>`)
-            }
 
             (async () => {
             var Promise = TrelloPowerUp.Promise;
@@ -88,7 +83,8 @@
                     time_spent: timeSpent,
                     description
                 };
-                storeLog(data)
+                const response = await storeLog(data)
+                await getLogs()
                 );
             });
         })()
