@@ -2,6 +2,7 @@ async function get(url, options = {}) {
     const res = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     })
     const result = await res.json()

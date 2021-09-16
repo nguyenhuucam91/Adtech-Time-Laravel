@@ -3,47 +3,55 @@
 @push('css')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="create-log.css"/>
+    <style>
+        .container{
+            max-width: 700px;
+        }
+    </style>
 @endpush
 
 
 @section('content')
+<div class="container">
     <form id="logwork-form">
-        <div class="container">
-            <div class="row d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
             <div>
                 <p class="text-center">Date</p>
-                <input type="text" class="form-control" id="log-date" value="{{ date('d-m-Y') }}"/>
+                <input type="text" class="form-control" id="log-date" value="{{ date('d-m-Y') }}" tabindex="1"/>
             </div>
 
             <div>
                 <p class="text-center">Time spent (4w 2h 2d)</p>
-                <input type="text" class="form-control" id="time-spent"/>
+                <input type="text" class="form-control" id="time-spent" tabindex="2"/>
             </div>
 
             <div>
                 <p >&nbsp;</p>
                 <button type="submit" class="btn btn-primary" id="log-work">Log work</button>
             </div>
-            </div>
-            <br/>
-            <div class="row">
+        </div>
+        <div>
             <p>Description</p>
-            <textarea class="form-control" id="description"></textarea>
+            <textarea class="form-control" id="description" tabindex="3"></textarea>
         </div>
     </form>
-    <!-- Result after query -->
-    <div class="row">
+</div>
+<hr/>
+<!-- Result after query -->
         <div id="result" class="list-group">
             @foreach($logs as $log)
-            <div class="list-group-item d-flex justify-content-between">
-                <img src="{{ $log->avatar_url }}" alt={{ $log->username }} />
-                <p>{{ $log->time_spent }}</p>
-                <p>{{ $log->description }}</p>
-            </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                        <img src="{{ $log->avatar_url }}" />
+                        <div class="d-flex flex-column">
+                            <p>{{ $log->username }} - {{ $log->time_spent }}</p>
+                            <span>{{ $log->logged_at }}</span>
+                        </div>
+                    </div>
+                    <span>{{ $log->description }}</span>
+                </div>
             @endforeach
         </div>
-    </div>
 @endsection
 
     @push('js')
@@ -63,10 +71,12 @@
             (async () => {
             var Promise = TrelloPowerUp.Promise;
             var t = TrelloPowerUp.iframe();
-            const cardId = t.arg('cardId')
-              // const apiKey = getApiKey();
-              // const userToken = getUserAccessToken(t);
+            let cardId = t.arg('cardId');
+            let boardId = t.arg('boardId');
+
             const user = await getMember(t, @json(config('services.trello.key')));
+            // const user = {id: 1, username: 'camnh', avatarUrl: 'a/c'}
+            // cardId = 1; boardId = 1;
             //send post request on form submit
             $("#logwork-form").submit(async function(e) {
                 //console.log(a)
@@ -81,10 +91,22 @@
                     card_id: cardId,
                     logged_at: logDate,
                     time_spent: timeSpent,
+                    board_id: boardId,
                     description
                 };
-                const response = await storeLog(data)
-                await getLogs()
+                await storeLog(data)
+                const logHtml = await getLogs(cardId)
+                $("#result").html(logHtml.data.map(item =>
+                `<div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                        <img src="${item.avatar_url}" />
+                        <div class="d-flex flex-column">
+                            <p>${item.username} - ${item.time_spent}</p>
+                            <span>${item.logged_at}</span>
+                        </div>
+                    </div>
+                    <span>${item.description}</span>
+                </div>`))
             });
         })()
 

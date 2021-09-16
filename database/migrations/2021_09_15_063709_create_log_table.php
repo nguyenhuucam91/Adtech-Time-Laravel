@@ -13,7 +13,7 @@ class CreateLogTable extends Migration
      */
     public function up()
     {
-        Schema::create('log', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
             $table->string('username');
@@ -22,6 +22,8 @@ class CreateLogTable extends Migration
             $table->dateTime('logged_at');
             $table->string('time_spent');
             $table->string('description');
+            $table->string('board_id');
+            $table->timestamps();
         });
     }
 

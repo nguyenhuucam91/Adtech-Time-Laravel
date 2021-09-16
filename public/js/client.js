@@ -8,13 +8,17 @@ window.TrelloPowerUp.initialize({
             text: 'Log work',
             callback: async (t) => {
                 const card = await t.card('id');
-                const cardId = card.id
+                const board = await t.board('id');
+                const cardId = card.id;
+                const boardId = board.id;
+
                 return t.modal({
                     url: route('log.show', cardId),
                     title: 'Log work',
                     fullscreen: false,
                     args: {
-                        cardId: cardId
+                        cardId,
+                        boardId
                     }
                 })
 
