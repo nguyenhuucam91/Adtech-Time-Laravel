@@ -37,21 +37,6 @@
     </form>
 </div>
 <hr/>
-<!-- Result after query -->
-        <div id="result" class="list-group">
-            @foreach($logs as $log)
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <img src="{{ $log->avatar_url."/30.png" }}" />
-                        <div class="d-flex flex-column">
-                            <p>{{ $log->username }} - {{ $log->time_spent }}</p>
-                            <span>{{ $log->logged_at }}</span>
-                        </div>
-                    </div>
-                    <span>{{ $log->description }}</span>
-                </div>
-            @endforeach
-        </div>
 @endsection
 
     @push('js')
@@ -94,19 +79,12 @@
                     board_id: boardId,
                     description
                 };
-                await storeLog(data)
-                const logHtml = await getLogs(cardId)
-                $("#result").html(logHtml.data.map(item =>
-                `<div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <img src="${item.avatar_url}" />
-                        <div class="d-flex flex-column">
-                            <p>${item.username} - ${item.time_spent}</p>
-                            <span>${item.logged_at}</span>
-                        </div>
-                    </div>
-                    <span>${item.description}</span>
-                </div>`))
+                try {
+                    await storeLog(data)
+                } catch  (e) {
+                    console.log(e)
+                }
+
             });
         })()
 

@@ -28,12 +28,14 @@ window.TrelloPowerUp.initialize({
         }];
     },
     'card-back-section': function (t, options) {
+        const card = await t.card('id');
+        const cardId = card.id;
         return {
-            title: 'My Card Back Section',
+            title: 'Work log',
             icon: GRAY_ICON, // Must be a gray icon, colored icons not allowed.
             content: {
                 type: 'iframe',
-                url: t.signUrl('https://www.openssl.org'),
+                url: route('log.show', cardId),
                 height: 230, // Max height is 1500.
             }
         }
