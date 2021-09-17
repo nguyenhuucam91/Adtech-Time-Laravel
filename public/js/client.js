@@ -19,7 +19,8 @@ window.TrelloPowerUp.initialize({
                     args: {
                         cardId,
                         boardId
-                    }
+                    },
+                    height: 800
                 })
 
             },

@@ -42,7 +42,7 @@
             @foreach($logs as $log)
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-                        <img src="{{ $log->avatar_url }}" />
+                        <img src="{{ $log->avatar_url."/30.png" }}" />
                         <div class="d-flex flex-column">
                             <p>{{ $log->username }} - {{ $log->time_spent }}</p>
                             <span>{{ $log->logged_at }}</span>
@@ -87,7 +87,7 @@
                 const data = {
                     user_id: user.id,
                     username: user.username,
-                    avatar_url: user.avatarUrl,
+                    avatar_url: user.avatarUrl + "/30.png",
                     card_id: cardId,
                     logged_at: logDate,
                     time_spent: timeSpent,
