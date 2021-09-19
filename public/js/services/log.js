@@ -5,3 +5,7 @@ async function storeLog(data) {
 async function getLogs(cardId) {
     return await get(route('log.show', cardId))
 }
+
+async function destroyLog(id) {
+    return await destroy(route('log.destroy', {id, _token:}))
+}

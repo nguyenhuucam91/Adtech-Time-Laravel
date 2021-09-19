@@ -20,7 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/logs/create', [LogController::class, 'create'])->name('log.create');
 Route::get('/logs/{cardId}', [LogController::class, 'show'])->name('log.show');
+Route::delete('/logs/{id}', [LogController::class, 'destroy'])->name('log.destroy');
 
 Route::get('authorize', [AuthorizeController::class, 'index'])->name('authorize.index');
 Route::get('/authorize-success', [AuthorizeController::class, 'success'])->name('authorize.success');

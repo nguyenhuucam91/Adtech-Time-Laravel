@@ -12,15 +12,12 @@ class LogController extends Controller
     public function show(Request $request, $cardId)
     {
         $logs = Log::where('card_id', $cardId)->orderBy('updated_at', 'desc')->get();
-        if ($request->wantsJson()) {
-            return response()->json(['data' => $logs]);
-        }
         return view('log.show', compact('logs'));
     }
 
-    public function index($cardId)
+    public function create()
     {
-        return response()->json(['data' => Log::where('card_id', $cardId)->get()]);
+        return view('log.create');
     }
 
     public function store(Request $request)
@@ -32,6 +29,10 @@ class LogController extends Controller
         } else {
             return response()->json(['message' => 'cannot store value'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
 
+    public function destroy($id)
+    {
+        return Log::destroy($id);
     }
 }

@@ -18,4 +18,9 @@ class Log extends Model
     {
         return Carbon::parse($this->attributes['logged_at'])->format('d-m-Y');
     }
+
+    public function getUpdatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['updated_at'])->format('d-m-Y H:i:s');
+    }
 }

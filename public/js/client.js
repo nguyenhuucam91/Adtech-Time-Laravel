@@ -13,21 +13,20 @@ window.TrelloPowerUp.initialize({
                 const boardId = board.id;
 
                 return t.modal({
-                    url: route('log.show', cardId),
+                    url: route('log.create'),
                     title: 'Log work',
                     fullscreen: false,
                     args: {
                         cardId,
                         boardId
-                    },
-                    height: 800
+                    }
                 })
 
             },
             condition: 'edit'
         }];
     },
-    'card-back-section': function (t, options) {
+    'card-back-section': async function (t, options) {
         const card = await t.card('id');
         const cardId = card.id;
         return {
@@ -37,6 +36,10 @@ window.TrelloPowerUp.initialize({
                 type: 'iframe',
                 url: route('log.show', cardId),
                 height: 230, // Max height is 1500.
+            },
+            action: {
+                    text: 'Hello',
+                    callback: () => {}
             }
         }
     },

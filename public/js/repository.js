@@ -1,24 +1,29 @@
+
 async function get(url, options = {}) {
-    const res = await fetch(url, {
+    const result = await axios.get(url, {
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            "Access-Control-Allow-Origin": "*"
         }
     })
-    const result = await res.json()
     return result
 }
 
 async function post(url, data) {
-    const response = await fetch(url, {
-        method: 'POST',
+    const jsonResult = await axios.post(url, JSON.stringify(data), {
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    const jsonResult = await response.json()
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
     return jsonResult
+}
+
+async function destroy(url) {
+    const response = await axios.delete(url, {
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
+    return response
 }
 
 
