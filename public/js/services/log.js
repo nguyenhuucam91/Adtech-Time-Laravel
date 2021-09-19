@@ -7,5 +7,5 @@ async function getLogs(cardId) {
 }
 
 async function destroyLog(id) {
-    return await destroy(route('log.destroy', {id, _token:}))
+    return await destroy(route('log.destroy', id))
 }
