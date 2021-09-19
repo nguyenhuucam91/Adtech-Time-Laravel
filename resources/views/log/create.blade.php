@@ -46,15 +46,16 @@
     <script src="{{ asset('js/services/log.js') }}"></script>
 
     <script>
-        (async () => {
+        let user;
         var Promise = TrelloPowerUp.Promise;
         var t = TrelloPowerUp.iframe();
         let cardId = t.arg('cardId');
         let boardId = t.arg('boardId');
 
-        const user = await getMember(t, @json(config('services.trello.key')));
-        // const user = {id: 1, username: 'camnh', avatarUrl: 'a/c'}
-        // cardId = 1; boardId = 1;
+        user = getMember(t, @json(config('services.trello.key')))
+        user = {id: 1, username: 'camnh', avatarUrl: 'a/c'}
+        cardId = 1; boardId = 1;
+
         //send post request on form submit
         $("#logwork-form").submit(async function(e) {
             //console.log(a)
@@ -74,13 +75,12 @@
             };
             try {
                 await storeLog(data)
+                t.closeModal()
             } catch  (e) {
                 console.log(e)
             }
 
         });
-    })()
-
     </script>
 
 @endpush

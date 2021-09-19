@@ -27,6 +27,7 @@ window.TrelloPowerUp.initialize({
         }];
     },
     'card-back-section': async function (t, options) {
+        console.log('123')
         const card = await t.card('id');
         const cardId = card.id;
         return {
@@ -35,11 +36,7 @@ window.TrelloPowerUp.initialize({
             content: {
                 type: 'iframe',
                 url: route('log.show', cardId),
-                height: 230, // Max height is 1500.
-            },
-            action: {
-                    text: 'Hello',
-                    callback: () => {}
+                height: 150, // Max height is 1500.
             }
         }
     },

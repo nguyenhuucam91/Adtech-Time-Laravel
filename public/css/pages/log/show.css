@@ -1,5 +1,7 @@
 #result {
     font-family: 'Roboto';
+    height: 140px;
+    overflow: scroll;
 }
 
 .result-item {
@@ -20,6 +22,7 @@
     align-items: center;
     width: 100%;
     height: 25px;
+    justify-content: space-between;
 }
 
 .work-log-creator {
@@ -41,6 +44,7 @@
 
 .work-log-title {
     padding: 0px 0px 0px 8px;
+    width: 100%;
 }
 
 .work-log-description {
@@ -59,4 +63,8 @@ hr {
     margin: 8px 0px 0px;
     box-sizing: content-box;
     background-color: rgba(9, 30, 66, .13);
+}
+
+.hide {
+    display: none;
 }
