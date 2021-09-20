@@ -27,16 +27,24 @@ window.TrelloPowerUp.initialize({
         }];
     },
     'card-back-section': async function (t, options) {
-        console.log('123')
         const card = await t.card('id');
         const cardId = card.id;
+        const visible = await t.get('card', 'shared', 'visible' + cardId, true)
+
         return {
             title: 'Work log',
             icon: GRAY_ICON, // Must be a gray icon, colored icons not allowed.
             content: {
                 type: 'iframe',
                 url: route('log.show', cardId),
-                height: 150, // Max height is 1500.
+                height: visible ? 200 : 1, //0 will return 1500 :((
+                },
+                action: {
+                        text: visible ? 'Hide Details' : 'Show Details',
+                        callback: (t) => {
+                            t.set('card', 'shared', 'visible' + cardId, !visible)
+                            t.showCard(options.context.card)
+                        }
             }
         }
     },
@@ -68,7 +76,7 @@ window.TrelloPowerUp.initialize({
 
         // If we want to ask the user to authorize our Power-Up to make full use of the Trello API
         // you'll need to add your API from trello.com/app-key below:
-        let trelloAPIKey = getApiKey()
+        let trelloAPIKey = window.TrelloAPIKey
         // This key will be used to generate a token that you can pass along with the API key to Trello's
         // RESTful API. Using the key/token pair, you can make requests on behalf of the authorized user.
 

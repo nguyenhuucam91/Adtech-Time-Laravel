@@ -32,14 +32,11 @@ class LogController extends Controller
 
         event(new LogIsCreated($log));
 
-        if ($request->wantsJson()) {
-            if ($log) {
-                return response()->json(['data' => $log]);
-            } else {
-                return response()->json(['message' => 'cannot store value'], Response::HTTP_INTERNAL_SERVER_ERROR);
-            }
+        if ($log) {
+            return response()->json(['data' => $log]);
+        } else {
+            return response()->json(['message' => 'cannot store value'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
     }
 
     public function destroy($id)

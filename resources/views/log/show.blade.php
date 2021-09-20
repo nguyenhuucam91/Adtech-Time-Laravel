@@ -11,8 +11,9 @@
 
 @section('content')
     <div class="operations">
-        <button href="javascript:void(0)" class="subtle button js-section-action" id="refresh">Refresh</button>
-        <button id="hide-details" href="javascript:void(0)" class="subtle button js-section-action">Hide Details</button>
+        <button href="javascript:void(0)" class="subtle button js-section-action" id="refresh">
+            Refresh
+        </button>
     </div>
     <div id="result">
         @foreach ($logs as $log)
@@ -24,8 +25,12 @@
                 <div class="tracked-time-wrapper">
                     <span class="work-log-username">{{ $log->username }} logged {{ $log->time_spent }}</span>
                     <span>
-                        <a href="">Edit</a>
-                        <a href="javascript:void(0)" class="delete" data-id="{{ $log->id }}">Delete</a>
+                        <a href="javascript:void(0)" class="edit">
+                            <img src={{ asset('images/edit.svg') }} />
+                        </a>
+                        <a href="javascript:void(0)" class="delete" data-id="{{ $log->id }}">
+                            <img src={{ asset('images/trash.svg') }} />
+                        </a>
                     </span>
                 </div>
                 <div><span class="work-log-description">{{ $log->description }}</span></div>
@@ -47,13 +52,15 @@
     <script>
         var Promise = TrelloPowerUp.Promise;
         var t = TrelloPowerUp.iframe();
+
         let cardId = @json($cardId);
 
         // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
+        //Realtime
+        Pusher.logToConsole = false;
 
         var pusher = new Pusher(@json(config('broadcasting.connections.pusher.key')), {
-            cluster: 'ap1'
+            cluster: @json(config('broadcasting.connections.pusher.options.cluster'))
         });
 
         var channel = pusher.subscribe('test-pusher');
@@ -62,6 +69,7 @@
             $("#result").prepend(newestLog)
         });
 
+        //End realtime
         function generateItemHtml(item)
         {
             return `<div class="result-item">
@@ -72,8 +80,12 @@
                             <div class="tracked-time-wrapper">
                                 <span class="work-log-username">${item.username} logged ${item.time_spent}</span>
                                 <span>
-                                    <a href="">Edit</a>
-                                    <a href="javascript:void(0)" class="delete" data-id="${item.id}">Delete</a>
+                                    <a href="javascript:void(0)" class="edit">
+                                        <img src={{ asset('images/edit.svg') }} />
+                                    </a>
+                                    <a href="javascript:void(0)" class="delete" data-id="${item.id}">
+                                        <img src={{ asset('images/trash.svg') }} />
+                                    </a>
                                 </span>
                             </div>
                             <div><span class="work-log-description">${item.description}</span></div>
@@ -96,10 +108,19 @@
             const logId = $(this).data('id');
             const wantsDelete = confirm('Are you sure to delete this log')
             if (wantsDelete) {
-                await destroyLog(logId)
-                const logs = await getLogs(cardId)
-                const content = logs.data.map((item) => generateItemHtml(item))
-                $("#result").html(content)
+                try {
+                    await destroyLog(logId)
+                    t.alert({
+                        message: 'Log deleted successfully',
+                        duration: 3
+                    })
+                    const logs = await getLogs(cardId)
+                    const content = logs.data.map((item) => generateItemHtml(item))
+                    $("#result").html(content)
+                } catch (e)
+                {
+                    console.error(e)
+                }
             }
         })
 

@@ -2,8 +2,9 @@
 
 @push('css')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <style>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<style>
         .container{
             max-width: 700px;
         }
@@ -41,46 +42,56 @@
 
 @push('js')
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/repository.js') }}"></script>
     <script src="{{ asset('js/services/user.js') }}"></script>
     <script src="{{ asset('js/services/log.js') }}"></script>
 
     <script>
-        let user;
         var Promise = TrelloPowerUp.Promise;
         var t = TrelloPowerUp.iframe();
-        let cardId = t.arg('cardId');
-        let boardId = t.arg('boardId');
 
-        user = getMember(t, @json(config('services.trello.key')))
-        user = {id: 1, username: 'camnh', avatarUrl: 'a/c'}
-        cardId = 1; boardId = 1;
+        (async () => {
+            let user = await getMember(t)
 
-        //send post request on form submit
-        $("#logwork-form").submit(async function(e) {
-            //console.log(a)
-            e.preventDefault();
-            const logDate = $("#log-date").val();
-            const timeSpent = $("#time-spent").val();
-            const description = $("#description").val();
-            const data = {
-                user_id: user.id,
-                username: user.username,
-                avatar_url: user.avatarUrl,
-                card_id: cardId,
-                logged_at: logDate,
-                time_spent: timeSpent,
-                board_id: boardId,
-                description
-            };
-            try {
-                await storeLog(data)
-                t.closeModal()
-            } catch  (e) {
-                console.log(e)
-            }
+            let cardId = t.arg('cardId');
+            let boardId = t.arg('boardId');
 
-        });
+            $("#log-date").datepicker({
+                uiLibrary: 'bootstrap4',
+                format: 'dd-mm-yyyy'
+            })
+            //send post request on form submit
+            $("#logwork-form").submit(async function(e) {
+                //console.log(a)
+                e.preventDefault();
+                const logDate = $("#log-date").val();
+                const timeSpent = $("#time-spent").val();
+                const description = $("#description").val();
+                const data = {
+                    user_id: user.id,
+                    username: user.username,
+                    avatar_url: user.avatarUrl,
+                    card_id: cardId,
+                    logged_at: logDate,
+                    time_spent: timeSpent,
+                    board_id: boardId,
+                    description
+                };
+                try {
+                    await storeLog(data)
+                    t.alert({
+                        message: 'Log stored successfully',
+                        duration: 3
+                    })
+                    t.closeModal()
+                } catch  (e) {
+                    console.log(e)
+                }
+            });
+        })()
+
+
     </script>
 
 @endpush
