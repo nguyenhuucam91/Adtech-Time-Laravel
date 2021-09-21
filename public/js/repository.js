@@ -34,11 +34,32 @@ async function destroy(url) {
     return jsonResult
 }
 
+async function put(url, data) {
+    const response = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    const jsonResult = await response.json()
+    return jsonResult
+}
+
 
 async function create(url, data) {
-    await post(url, data)
+    return await post(url, data)
 }
 
 async function find(url) {
-    await get(url);
+    return await get(url);
+}
+
+async function update(url, data) {
+    return await put(url, data);
+}
+
+async function remove(url) {
+    return await destroy(url);
 }

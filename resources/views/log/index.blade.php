@@ -59,6 +59,7 @@
 
         let cardId = @json($cardId);
 
+
         (async () => {
             cardVisible = await getLogVisibility(t, cardId)
             cardVisible ? $("#set-visibility").text("Hide Details") : $("#set-visibility").text("Show Details")
@@ -73,9 +74,13 @@
         });
 
         var channel = pusher.subscribe('test-pusher');
-        channel.bind('message', function(data) {
+        channel.bind('log-created', function(data) {
             const newestLog = generateItemHtml(data.log)
             $("#result").prepend(newestLog)
+        });
+        channel.bind('log-updated', async function() {
+            const logs = await refreshLogs(cardId)
+            $("#result").html(logs)
         });
 
         //End realtime

@@ -3,11 +3,15 @@ async function storeLog(data) {
 }
 
 async function getLogs(cardId) {
-    return await get(route('log.index', cardId))
+    return await find(route('log.index', cardId))
 }
 
 async function destroyLog(id) {
-    return await destroy(route('log.destroy', id))
+    return await remove(route('log.destroy', id))
+}
+
+async function updateLog(id, data) {
+    return await update(route('log.update', id), data)
 }
 
 function generateItemHtml(item) {
@@ -19,7 +23,7 @@ function generateItemHtml(item) {
                     <div class="tracked-time-wrapper">
                         <span class="work-log-username">${item.username} logged ${item.time_spent}</span>
                         <span>
-                            <a href="javascript:void(0)" class="edit">
+                            <a href="javascript:void(0)" class = "edit" data-id="${item.id}">
                                 <img src='/public/images/edit.svg' />
                             </a>
                             <a href="javascript:void(0)" class="delete" data-id="${item.id}">

@@ -32,8 +32,7 @@
         (async () => {
             let user = await getMember(t)
 
-            let cardId = t.arg('cardId');
-            let boardId = t.arg('boardId');
+            const logId = @json($id)
 
             $("#log-date").datepicker({
                 uiLibrary: 'bootstrap4',
@@ -50,16 +49,14 @@
                     user_id: user.id,
                     username: user.username,
                     avatar_url: user.avatarUrl,
-                    card_id: cardId,
                     logged_at: logDate,
                     time_spent: timeSpent,
-                    board_id: boardId,
                     description
                 };
                 try {
-                    await storeLog(data)
+                    await updateLog(logId, data)
                     t.alert({
-                        message: 'Log stored successfully',
+                        message: 'Log updated successfully',
                         duration: 3
                     })
                     t.closeModal()
