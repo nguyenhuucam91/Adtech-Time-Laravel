@@ -13,7 +13,8 @@ class LogController extends Controller
 {
     public function index(Request $request, $cardId)
     {
-        $logs = Log::where('card_id', $cardId)->orderBy('updated_at', 'desc')->get();
+        $logs = Log::where('card_id', $cardId)->orderBy('updated_at', 'desc')
+        ->get(['id', 'username', 'avatar_url', 'time_spent', 'id', 'description', 'updated_at']);
         if ($request->wantsJson()) {
             return response()->json(['data' => $logs]);
         }
