@@ -1,6 +1,7 @@
 #result {
     font-family: 'Roboto';
     height: 140px;
+    overflow-y: scroll;
 }
 
 a {

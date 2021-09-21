@@ -16,7 +16,9 @@ class Log extends Model
 
     public function getLoggedAtAttribute()
     {
-        return Carbon::parse($this->attributes['logged_at'])->format('d-m-Y');
+        if (count($this->attributes) > 0 && $this->attributes['logged_at'] != null) {
+            return Carbon::parse($this->attributes['logged_at'])->format('d-m-Y');
+        }
     }
 
     public function getUpdatedAtAttribute()

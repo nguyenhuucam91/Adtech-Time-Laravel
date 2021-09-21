@@ -3,7 +3,7 @@ async function storeLog(data) {
 }
 
 async function getLogs(cardId) {
-    return await get(route('log.show', cardId))
+    return await get(route('log.index', cardId))
 }
 
 async function destroyLog(id) {
@@ -20,10 +20,10 @@ function generateItemHtml(item) {
                         <span class="work-log-username">${item.username} logged ${item.time_spent}</span>
                         <span>
                             <a href="javascript:void(0)" class="edit">
-                                <img src={{ asset('images/edit.svg') }} />
+                                <img src='/public/images/edit.svg' />
                             </a>
                             <a href="javascript:void(0)" class="delete" data-id="${item.id}">
-                                <img src={{ asset('images/trash.svg') }} />
+                                <img src='/public/images/trash.svg' />
                             </a>
                         </span>
                     </div>

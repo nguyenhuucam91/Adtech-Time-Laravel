@@ -28,7 +28,7 @@
                 <div class="tracked-time-wrapper">
                     <span class="work-log-username">{{ $log->username }} logged {{ $log->time_spent }}</span>
                     <span>
-                        <a href="javascript:void(0)" class="edit">
+                        <a href="javascript:void(0)" class="edit" data-id="{{ $log->id }}">
                             <img src={{ asset('images/edit.svg') }} />
                         </a>
                         <a href="javascript:void(0)" class="delete" data-id="{{ $log->id }}">
@@ -108,6 +108,17 @@
                     console.error(e)
                 }
             }
+        })
+
+        //edit log
+        $(document).on('click', '.edit', async function(e) {
+            e.preventDefault()
+            const logId = $(this).data('id');
+            return t.modal({
+                url: route('log.edit', logId),
+                title: 'Edit Log work',
+                fullscreen: false
+            })
         })
 
     </script>

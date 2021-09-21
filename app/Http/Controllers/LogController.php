@@ -10,18 +10,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LogController extends Controller
 {
-    public function show(Request $request, $cardId)
+    public function index(Request $request, $cardId)
     {
         $logs = Log::where('card_id', $cardId)->orderBy('updated_at', 'desc')->get();
         if ($request->wantsJson()) {
             return response()->json(['data' => $logs]);
         }
-        return view('log.show', compact('logs', 'cardId'));
+        return view('log.index', compact('logs', 'cardId'));
     }
 
     public function create()
     {
-        return view('log.create');
+        $log = new Log();
+        return view('log.create', compact('log'));
     }
 
     public function store(Request $request)
@@ -42,5 +43,13 @@ class LogController extends Controller
     public function destroy($id)
     {
         return Log::destroy($id);
+    }
+
+    public function edit($id)
+    {
+        $log = Log::findOrFail($id);
+        if ($log) {
+            return view('log.edit', compact('log'));
+        }
     }
 }

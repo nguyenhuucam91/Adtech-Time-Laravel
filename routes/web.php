@@ -21,8 +21,10 @@ Route::get('/', function () {
 });
 
 Route::get('/logs/create', [LogController::class, 'create'])->name('log.create');
-Route::get('/logs/{cardId}', [LogController::class, 'show'])->name('log.show');
+Route::get('/logs/{cardId}', [LogController::class, 'index'])->name('log.index');
 Route::delete('/logs/{id}', [LogController::class, 'destroy'])->name('log.destroy');
+Route::get('/logs/{id}/edit', [LogController::class, 'edit'])->name('log.edit');
+
 
 Route::get('authorize', [AuthorizeController::class, 'index'])->name('authorize.index');
 Route::get('/authorize-success', [AuthorizeController::class, 'success'])->name('authorize.success');

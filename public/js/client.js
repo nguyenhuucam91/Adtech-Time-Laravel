@@ -35,7 +35,7 @@ window.TrelloPowerUp.initialize({
             icon: GRAY_ICON, // Must be a gray icon, colored icons not allowed.
             content: {
                 type: 'iframe',
-                url: t.signUrl(route('log.show', cardId)),
+                url: t.signUrl(route('log.index', cardId)),
                     height: visible ? 200 : 42, //0 will return 1500 :((
                 },
         }
