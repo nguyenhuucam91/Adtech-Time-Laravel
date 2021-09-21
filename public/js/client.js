@@ -29,23 +29,15 @@ window.TrelloPowerUp.initialize({
     'card-back-section': async function (t, options) {
         const card = await t.card('id');
         const cardId = card.id;
-        const visible = await t.get('card', 'shared', 'visible' + cardId, true)
-
+        const visible = await getLogVisibility(t, cardId)
         return {
             title: 'Work log',
             icon: GRAY_ICON, // Must be a gray icon, colored icons not allowed.
             content: {
                 type: 'iframe',
-                url: route('log.show', cardId),
-                height: visible ? 200 : 1, //0 will return 1500 :((
+                url: t.signUrl(route('log.show', cardId)),
+                    height: visible ? 200 : 42, //0 will return 1500 :((
                 },
-                action: {
-                        text: visible ? 'Hide Details' : 'Show Details',
-                        callback: (t) => {
-                            t.set('card', 'shared', 'visible' + cardId, !visible)
-                            t.showCard(options.context.card)
-                        }
-            }
         }
     },
     'authorization-status': function (t, options) {

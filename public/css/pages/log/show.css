@@ -1,16 +1,15 @@
 #result {
     font-family: 'Roboto';
     height: 140px;
-    overflow-y: scroll;
-    }
+}
 
-    a {
-        text-decoration: none;
-    }
+a {
+    text-decoration: none;
+}
 
-    .operations {
-        border-bottom: 1px solid rgb(0 0 0 / 21%);
-        padding: 0px 0px 8px 0;
+.operations {
+    border-bottom: 1px solid rgb(0 0 0 / 21%);
+    padding: 0px 0px 8px 0;
 }
 
 .result-item {
@@ -52,7 +51,7 @@
 }
 
 .work-log-title {
-    padding: 0px 0px 0px 8px;
+    padding: 0px 20px 0px 8px;
     width: 100%;
 }
 

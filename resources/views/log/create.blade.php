@@ -42,7 +42,6 @@
 
 @push('js')
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/repository.js') }}"></script>
     <script src="{{ asset('js/services/user.js') }}"></script>
     <script src="{{ asset('js/services/log.js') }}"></script>

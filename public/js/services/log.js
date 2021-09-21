@@ -9,3 +9,35 @@ async function getLogs(cardId) {
 async function destroyLog(id) {
     return await destroy(route('log.destroy', id))
 }
+
+function generateItemHtml(item) {
+    return `<div class="result-item">
+                <div class="work-log-creator">
+                    <img src=${item.avatar_url + "/30.png"} class="member-avatar">
+                </div>
+                <div class="work-log-title">
+                    <div class="tracked-time-wrapper">
+                        <span class="work-log-username">${item.username} logged ${item.time_spent}</span>
+                        <span>
+                            <a href="javascript:void(0)" class="edit">
+                                <img src={{ asset('images/edit.svg') }} />
+                            </a>
+                            <a href="javascript:void(0)" class="delete" data-id="${item.id}">
+                                <img src={{ asset('images/trash.svg') }} />
+                            </a>
+                        </span>
+                    </div>
+                    <div><span class="work-log-description">${item.description}</span></div>
+                    <div class="logged-time">
+                        ${item.updated_at}
+                    </div>
+                </div>
+            </div>
+            `
+}
+
+async function refreshLogs(cardId) {
+    const logs = await getLogs(cardId)
+    const content = logs.data.map((item) => generateItemHtml(item))
+    return content
+}
