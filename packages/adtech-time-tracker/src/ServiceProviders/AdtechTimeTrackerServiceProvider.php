@@ -20,9 +20,9 @@ class AdtechTimeTrackerServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
 
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../../config/config.php' => config_path('adtech-time-tracker.php'),
-            ], 'config');
+            // $this->publishes([
+            //     __DIR__ . '/../../config/config.php' => config_path('adtech-time-tracker.php'),
+            // ], 'config');
 
             // Publishing the views.
             /*$this->publishes([
@@ -31,7 +31,7 @@ class AdtechTimeTrackerServiceProvider extends ServiceProvider
 
             // Publishing assets.
             $this->publishes([
-                __DIR__ . '/../../resources/assets' => public_path('vendor/adtech-time-tracker'),
+                __DIR__ . '/../../public/assets' => public_path('vendor/adtech-time-tracker'),
             ], 'assets');
 
             // Publishing the translation files.
@@ -52,9 +52,5 @@ class AdtechTimeTrackerServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'adtech-time-tracker');
 
-        // Register the main class to use with the facade
-        $this->app->singleton('adtech-time-tracker', function () {
-            return new AdtechTimeTracker;
-        });
     }
 }

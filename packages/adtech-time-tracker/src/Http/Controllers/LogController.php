@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Adtech\AdtechTimeTracker\Http\Controllers;
 
-use App\Events\LogIsCreated;
-use App\Events\LogIsUpdated;
-use App\Models\Log;
+use Adtech\AdtechTimeTracker\Events\LogIsCreated;
+use Adtech\AdtechTimeTracker\Events\LogIsUpdated;
+use Adtech\AdtechTimeTracker\Http\Models\Log;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +15,17 @@ class LogController extends Controller
     public function index(Request $request, $cardId)
     {
         $logs = Log::where('card_id', $cardId)->orderBy('updated_at', 'desc')
-        ->get(['id', 'username', 'avatar_url', 'time_spent', 'id', 'description', 'updated_at']);
+            ->get(['id', 'username', 'avatar_url', 'time_spent', 'id', 'description', 'updated_at']);
         if ($request->wantsJson()) {
             return response()->json(['data' => $logs]);
         }
-        return view('log.index', compact('logs', 'cardId'));
+        return view('adtech-time-tracker::log.index', compact('logs', 'cardId'));
     }
 
     public function create()
     {
         $log = new Log();
-        return view('log.create', compact('log'));
+        return view('adtech-time-tracker::log.create', compact('log'));
     }
 
     public function store(Request $request)
@@ -51,7 +52,7 @@ class LogController extends Controller
     {
         $log = Log::findOrFail($id);
         if ($log) {
-            return view('log.edit', compact('log', 'id'));
+            return view('adtech-time-tracker::log.edit', compact('log', 'id'));
         }
     }
 

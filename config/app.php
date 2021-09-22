@@ -1,5 +1,7 @@
 <?php
 
+use Adtech\AdtechTimeTracker\ServiceProviders\AdtechTimeTrackerServiceProvider;
+
 return [
 
     /*
@@ -161,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        AdtechTimeTrackerServiceProvider::class,
 
         /*
          * Package Service Providers...

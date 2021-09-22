@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adtech-time-tracker::layouts.app')
 
 @push('css')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -14,16 +14,16 @@
 
 @section('content')
 <div class="container">
-    @include('log._form')
+    @include('adtech-time-tracker::log._form')
 </div>
 <hr/>
 @endsection
 
 @push('js')
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <script src="{{ asset('js/repository.js') }}"></script>
-    <script src="{{ asset('js/services/user.js') }}"></script>
-    <script src="{{ asset('js/services/log.js') }}"></script>
+    <script src="{{ asset('vendor/adtech-time-tracker/js/repository.js') }}"></script>
+    <script src="{{ asset('vendor/adtech-time-tracker/js/services/user.js') }}"></script>
+    <script src="{{ asset('vendor/adtech-time-tracker/js/services/log.js') }}"></script>
 
     <script>
         var Promise = TrelloPowerUp.Promise;
@@ -32,7 +32,8 @@
         (async () => {
             let user = await getMember(t)
 
-            const logId = @json($id)
+            let cardId = t.arg('cardId');
+            let boardId = t.arg('boardId');
 
             $("#log-date").datepicker({
                 uiLibrary: 'bootstrap4',
@@ -49,14 +50,16 @@
                     user_id: user.id,
                     username: user.username,
                     avatar_url: user.avatarUrl,
+                    card_id: cardId,
                     logged_at: logDate,
                     time_spent: timeSpent,
+                    board_id: boardId,
                     description
                 };
                 try {
-                    await updateLog(logId, data)
+                    await storeLog(data)
                     t.alert({
-                        message: 'Log updated successfully',
+                        message: 'Log stored successfully',
                         duration: 3
                     })
                     t.closeModal()

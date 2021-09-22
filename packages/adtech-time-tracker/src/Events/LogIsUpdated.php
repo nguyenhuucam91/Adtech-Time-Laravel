@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events;
+namespace Adtech\AdtechTimeTracker\Events;
 
-use App\Models\Log;
+use Adtech\AdtechTimeTracker\Models\Log;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class LogIsCreated implements
+class LogIsUpdated implements
     ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -39,6 +39,6 @@ class LogIsCreated implements
 
     public function broadcastAs()
     {
-        return 'log-created';
+        return 'log-updated';
     }
 }
